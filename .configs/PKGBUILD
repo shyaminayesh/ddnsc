@@ -1,0 +1,6 @@
+pkgname="ddnsc"
+pkgdesc="A simple & lightweight client to update DNS dynamically."
+pkgver=1.0.0
+pkgrel=1
+arch=("any")
+depends=("python>=3" "python-systemd" "python-requests")
