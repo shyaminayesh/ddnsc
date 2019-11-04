@@ -1,5 +1,6 @@
 # EDITORS
 .vscode
 
-# Byte-compiled
+# Byte-compiled / optimized
 __pycache__/
+*.py[cod]
