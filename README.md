@@ -11,6 +11,6 @@ Just another simple & lightweight client to update DNS dynamically. Written in p
 ## Supported Services
 
 |     Name     ||
-|--------------|------------|
-| CloudFlare   | WORKING    |
-| DreamHost    | :new_moon: |
+|--------------|---------------------|
+| CloudFlare   | :large_blue_circle: |
+| DreamHost    | :red_circle:        |
