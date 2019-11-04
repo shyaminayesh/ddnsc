@@ -24,4 +24,4 @@ ddnsc support few linux package managers to make it easy to install.
 
 | DISTRO         |  REPO                                          |  VERSION  |
 |----------------|------------------------------------------------|:---------:|
-|  Arch          | [AUR](//aur.archlinux.org/packages/ddnsc)      | v1.0.0    |
+|  Arch          | [aur](//aur.archlinux.org/packages/ddnsc)      | v1.0.0    |
