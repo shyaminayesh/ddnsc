@@ -10,7 +10,7 @@ Just another simple & lightweight client to update DNS dynamically. Written in p
 
 ## Supported Services
 
-|     NAME     |  SITE                      |        STATUS       |
-|--------------|----------------------------|---------------------|
-| CloudFlare   |  [LINK](//cloudflare.com)  | :large_blue_circle: |
-| DreamHost    |  [LINK](//dreamhost.com)   | :red_circle:        |
+|     NAME     |  SITE                      |         STATUS        |
+|--------------|:---------------------------|:----------------------|
+| CloudFlare   |  [LINK](//cloudflare.com)  |  :large_blue_circle:  |
+| DreamHost    |  [LINK](//dreamhost.com)   |  :red_circle:         |
