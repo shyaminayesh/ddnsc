@@ -1,2 +1,5 @@
 # EDITORS
 .vscode
+
+# Byte-compiled
+__pycache__/
