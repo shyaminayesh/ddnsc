@@ -50,7 +50,7 @@ class CloudFlare:
         try:
 
             # REQUEST : GET RECORDS IDENTIFIER ( CloudFlare API )
-            res = requests.get("https://api.cloudflare.com/client/v4/zones/" + self.config['CloudFlare'].get('ZONE') + "/dns_records?name=bifrost.shyamin.com", headers=self.headers)
+            res = requests.get("https://api.cloudflare.com/client/v4/zones/" + self.config['CloudFlare'].get('zone') + "/dns_records?name=" + self.config['CloudFlare'].get('host'), headers=self.headers)
             if res.status_code == 200:
                 self.record['id'] = res.json()['result'][0]['id']
 
