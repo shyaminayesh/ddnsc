@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 import sys, requests, json
 from systemd import journal
 
