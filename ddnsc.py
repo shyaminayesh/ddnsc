@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import time, configparser, systemd.daemon, requests
 
 # PLUGINS
