@@ -75,7 +75,7 @@ class CloudFlare:
 
             res = requests.put("https://api.cloudflare.com/client/v4/zones/" + self.config['CloudFlare'].get('zone') + "/dns_records/" + self.record['id'], headers=self.headers, data=json.dumps(data))
             if res.status_code == 200:
-                journal.send("[ddns]: CloudFlare DDNS update success.")
+                journal.send("[ddnsc]: CloudFlare DDNS update success.")
 
         except requests.exceptions.RequestException as e:
             print( e )
