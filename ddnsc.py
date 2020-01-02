@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import time, configparser, systemd.daemon, requests
 
 # PLUGINS
@@ -20,15 +20,22 @@ if __name__ == '__main__':
     # NOTIFY ( systemd )
     systemd.daemon.notify('READY=1')
 
-    while True:   
+    zones = {}
+    for zone in config.sections():
+        if zone == 'global':
+            continue
+        provider = config[zone].get('provider')
+        try:
+            module = __import__("plugins." + provider, fromlist=[provider])
+        except ImportError:
+            print(f"ERROR: Unknown provider in zone '{zone}': {provider}")
+        zones[zone] = getattr(module, provider)(zone, config[zone])
+    update_interval_sec = config['global'].get('interval')
+    if not update_interval_sec:
+        update_interval_sec = 300
 
-        for section in config.sections():
-            if section == 'global': continue
+    while True:
+        for _, zone_invoke in zones.items():
+            zone_invoke.worker()
 
-            # DUNAMIC PLUGIN
-            module = __import__("plugins." + section, fromlist=[section])
-            instance = getattr(module, section)(config)
-            instance.worker()
-
-
-        time.sleep( int(config['global'].get('interval')) )
+        time.sleep(update_interval_sec)
