@@ -29,6 +29,9 @@ if __name__ == '__main__':
             module = __import__("plugins." + section, fromlist=[section])
             instance = getattr(module, section)(config)
             instance.worker()
+    update_interval_sec = config['global'].get('interval')
+    if not update_interval_sec:
+        update_interval_sec = 300
 
 
-        time.sleep( int(config['global'].get('interval')) )
+        time.sleep(update_interval_sec)
