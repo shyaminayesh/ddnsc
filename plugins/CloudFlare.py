@@ -4,14 +4,13 @@ from systemd import journal
 
 # HELPERS
 from helpers.IP import IP
+from helpers.rest_provider import RestProvider
 
 class CloudFlare:
 
     # PROPS
     config = None
-    record = {
-        "id": None
-    }
+    records = []
     headers = {
         "Content-type": "application/json",
         "X-Auth-Email": None,
@@ -27,58 +26,53 @@ class CloudFlare:
         self.zone = zone
         self.config = config
 
+
         '''
-        We need to configure the current public IP
+        Need to configure the current public IP
         before the update process begin.
         '''
         self.ip['public'] = IP().getPublic()
 
+
         '''
-        We need to configure CloudFlare request headers
+        Need to configure CloudFlare request headers
         prior to make any API request.
         '''
         self.headers['X-Auth-Email'] = self.config.get('email')
         self.headers['X-Auth-Key'] = self.config.get('key')
 
 
+        '''
+        Configure REST Provider with the headers
+        '''
+        self.rest = RestProvider("https://api.cloudflare.com/client/v4", auth=None, headers=self.headers)
 
-    def setPublicIp(self):
-        self.ip['public'] = IP().getPublic()
 
+        '''
+        Configure CloudFlare host record identifiers for each
+        record in the configuration file
+        '''
+        hosts = self.config['hosts'].split(",")
+        for host in hosts:
 
+            '''
+            Retrive the record identifiers
+            '''
+            id_list = self.rest.get('/zones/' + self.config.get('zone') + '/dns_records?name=' + host + '.' + self.config.name)
+            if id_list:
+                self.records.append({
+                    "type": "A",
+                    "id": id_list['result'][0]['id'],
+                    "name": host + '.' + self.config.name,
+                    "content": self.ip['public'],
+                    "ttl": 120,
+                    "proxied": False
+                })
 
-    def getRecordIdentifier(self):
-
-        try:
-
-            # REQUEST : GET RECORDS IDENTIFIER ( CloudFlare API )
-            res = requests.get("https://api.cloudflare.com/client/v4/zones/" + self.config['CloudFlare'].get('zone') + "/dns_records?name=" + self.config['CloudFlare'].get('host'), headers=self.headers)
-            if res.status_code == 200:
-                self.record['id'] = res.json()['result'][0]['id']
-
-        except requests.exceptions.RequestException as e:
-            print( e )
-            sys,exit(1)
 
 
 
     # WORKER
     def worker(self):
-
-        try:
-
-            data = {
-                "type": "A",
-                "name": self.config['CloudFlare'].get('host'),
-                "content": self.ip['public'],
-                "ttl": 120,
-                "proxied": False
-            }
-
-            res = requests.put("https://api.cloudflare.com/client/v4/zones/" + self.config['CloudFlare'].get('zone') + "/dns_records/" + self.record['id'], headers=self.headers, data=json.dumps(data))
-            if res.status_code == 200:
-                journal.send("[ddnsc]: CloudFlare DDNS update success.")
-
-        except requests.exceptions.RequestException as e:
-            print( e )
-            sys.exit(1)
+        for host in self.records:
+            self.rest.put('/zones/' + self.config.get('zone') + '/dns_records/' + host['id'], host)
