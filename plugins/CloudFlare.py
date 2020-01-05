@@ -23,19 +23,22 @@ class CloudFlare:
 
 
     # CONSTRUCTOR
-    def __init__(self, config):
+    def __init__(self, zone, config):
+        self.zone = zone
         self.config = config
 
-        # THINGS TO DO
-        self.setPublicIp()
-        self.setCloudFlareHeaders()
-        self.getRecordIdentifier()
+        '''
+        We need to configure the current public IP
+        before the update process begin.
+        '''
+        self.ip['public'] = IP().getPublic()
 
-
-
-    def setCloudFlareHeaders(self):
-        self.headers['X-Auth-Email'] = self.config['CloudFlare'].get('email')
-        self.headers['X-Auth-Key'] = self.config['CloudFlare'].get('key')
+        '''
+        We need to configure CloudFlare request headers
+        prior to make any API request.
+        '''
+        self.headers['X-Auth-Email'] = self.config.get('email')
+        self.headers['X-Auth-Key'] = self.config.get('key')
 
 
 
