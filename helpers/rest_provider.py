@@ -14,8 +14,7 @@ class RestProvider:
         :returns: dict representing json response. If error, returns None
         """
         try:
-            res = requests.get(f"{self.base_url}/{endpoint}",
-                               auth=self.auth, headers=self.headers)
+            res = requests.get(f"{self.base_url}/{endpoint}", auth=self.auth, headers=self.headers)
             if res.status_code != 200:
                 print(f"ERROR: Status code is {res.status_code}. "
                       f"Response: {res.text}")
@@ -32,9 +31,7 @@ class RestProvider:
         :returns: True if succesful, else False
         """
         try:
-            res = requests.put(f"{self.base_url}/{endpoint}",
-                               headers=self.headers, auth=self.auth,
-                               data=json.dumps(data))
+            res = requests.put(f"{self.base_url}/{endpoint}", headers=self.headers, auth=self.auth, data=json.dumps(data))
             if res.status_code != 200:
                 print(f"ERROR: Status code is {res.status_code}. "
                       f"Response: {res.text}")
