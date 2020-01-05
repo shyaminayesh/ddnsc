@@ -22,14 +22,28 @@ if __name__ == '__main__':
 
     zones = {}
     for zone in config.sections():
+
+        '''
+        We have to exclude the global section of the
+        configuration file from parsing as a zone
+        '''
         if zone == 'global':
             continue
+
         provider = config[zone].get('provider')
+
+
         try:
             module = __import__("plugins." + provider, fromlist=[provider])
         except ImportError:
             print(f"ERROR: Unknown provider in zone '{zone}': {provider}")
+
         zones[zone] = getattr(module, provider)(zone, config[zone])
+
+    '''
+    Get the update interval from the configuration file or
+    fallback to default interval 300 seconds
+    '''
     update_interval_sec = config['global'].get('interval')
     if not update_interval_sec:
         update_interval_sec = 300
@@ -38,4 +52,4 @@ if __name__ == '__main__':
         for _, zone_invoke in zones.items():
             zone_invoke.worker()
 
-        time.sleep(update_interval_sec)
+        time.sleep(int(update_interval_sec))
