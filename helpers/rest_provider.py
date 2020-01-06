@@ -14,15 +14,26 @@ class RestProvider:
         :returns: dict representing json response. If error, returns None
         """
         try:
+
             res = requests.get(f"{self.base_url}/{endpoint}", auth=self.auth, headers=self.headers)
+
+
+            '''
+            Return the response text if everything goes correctly
+            and the server response with 200 HTTP code.
+            '''
+            if res.status_code == 200:
+                return res.text
+
+
             if res.status_code != 200:
-                print(f"ERROR: Status code is {res.status_code}. "
-                      f"Response: {res.text}")
+                print(f"ERROR: Status code is {res.status_code}." f"Response: {res.text}")
                 return None
+
+
         except requests.exceptions.RequestException as e:
             print(f"ERROR: Request failed: {e}")
             return None
-        return res.json()
 
     def put(self, endpoint, data):
         """
