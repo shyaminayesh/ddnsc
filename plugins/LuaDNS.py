@@ -2,7 +2,6 @@
 from requests.auth import HTTPBasicAuth
 
 # HELPERS
-from helpers.IP import IP
 from helpers.rest_provider import RestProvider
 
 
@@ -12,9 +11,6 @@ class LuaDNS:
     config = None
     headers = {
         "Accept": "application/json"
-    }
-    ip = {
-        "public": None
     }
 
     # CONSTRUCTOR
@@ -27,13 +23,9 @@ class LuaDNS:
                                  headers=self.headers)
         self._zone_records = {}
         self._zones = {}
-        self.setPublicIp()
         self.zones = self._get_zones()
 
-    def setPublicIp(self):
-        self.ip['public'] = IP().getPublic()
-
-    def worker(self):
+    def worker(self, ip):
         hosts = self.config['hosts'].split(',')
         host_records = self._get_records(self.zones[self.zone])
         put_url = f"zones/{self.zones[self.zone]}/records"
@@ -49,7 +41,7 @@ class LuaDNS:
             data = {
                 "type": "A",
                 "name": host,
-                "content": self.ip['public'],
+                "content": ip,
                 "ttl": 120}
             ret = self.rest.put(f"{put_url}/{host_records[host]}", data)
             if not ret:
