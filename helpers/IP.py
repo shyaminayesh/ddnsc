@@ -5,7 +5,7 @@ import sys, requests
 class IP:
 
     @staticmethod
-    def getPublic(self):
+    def getPublic():
 
         try:
             response = requests.get("https://ipinfo.io")
