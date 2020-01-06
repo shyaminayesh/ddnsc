@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 import time, configparser, systemd.daemon, requests
 
-# PLUGINS
-from plugins.CloudFlare import CloudFlare
-
 if __name__ == '__main__':
 
     '''
