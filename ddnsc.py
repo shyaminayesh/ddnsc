@@ -17,7 +17,7 @@ if __name__ == '__main__':
     config.read('/etc/ddnsc/ddnsc.conf')
 
     # NOTIFY ( systemd )
-    systemd.daemon.notify(systemd.daemon.Notification.READY)
+    systemd.daemon.notify('READY=1')
 
     zones = {}
     for zone in config.sections():
