@@ -1,32 +1,59 @@
-# ddnsc v1.0.0
+# ddnsc
 
 Just another simple & lightweight client to update DNS dynamically. Written in python with easy way of supporting new service providers with REST API.
 
 
-## Requirements
+- [Introduction](#introduction)
+- [Requirements](#requirements)
+- [Providers](#providers)
+- [Installation](#installation)
+  - [Arch Linux](#arch-linux)
+  - [Manual](#manual)
+- [Configuration](#configuration)
 
- - Python v3 or later
+
+
+Introduction
+------------
+[ddnsc][] is a simple program that helps update DNS dynamically. Written in python and runs on GNU/Linux.
+
+
+
+Requirements
+------------
+- Python v3 or later
    - python-systemd
    - python-requests
 
 
-## Supported Services
 
-|     NAME     |  SITE                      |         STATUS        |
-|--------------|:--------------------------:|:----------------------|
-| CloudFlare   |  [LINK](//cloudflare.com)  |  :large_blue_circle:  |
-| DreamHost    |  [LINK](//dreamhost.com)   |  :red_circle:         |
+Providers
+---------
+
+ddns supports following DNS providers
+
+|     PROVIDER     |  WEBSITE                             |
+|------------------|:------------------------------------:|
+| CloudFlare       |  [cloudflare.com](//cloudflare.com)  |
+| LuaDNS           |  [luadns.com](//www.luadns.com)      |
 
 
-## Installation
 
-ddnsc support few linux package managers to make it easy to install.
+Installation
+------------
 
-| DISTRO         |  REPO                                          |  VERSION  |
-|----------------|------------------------------------------------|:---------:|
-|  Arch          | [aur](//aur.archlinux.org/packages/ddnsc)      | v1.0.0    |
+ddnsc support few major linux ditribution package managers to make it easy to install. You can always install manuallly.
 
-## Configuration
+### Arch Linux
+
+You can install ddnsc on Arch Linux using [AUR](//aur.archlinux.org/packages/ddnsc) package.
+
+  ```yay -S ddnsc```
+
+
+
+Configuration
+-------------
 
 Multiple DNS providers, domains, and hosts/subdomains are supported. The configuration file has the following format:
 
