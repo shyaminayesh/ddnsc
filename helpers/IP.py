@@ -4,7 +4,8 @@ import sys, requests
 
 class IP:
 
-    def getPublic(self):
+    @staticmethod
+    def getPublic():
 
         try:
             response = requests.get("https://ipinfo.io")
@@ -12,5 +13,6 @@ class IP:
                 ip = response.json()
                 return ip['ip']
         except requests.exceptions.RequestException as e:
+            print("ERROR: Unable to get public IP address!")
             print( e )
             sys,exit(1)

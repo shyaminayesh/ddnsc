@@ -5,5 +5,8 @@ class Example:
         print( config )
 
 
-    def worker(self):
-        print("Example::worker")
+    def worker(self, ip):
+        """
+        :param ip: str IPv4 address to use in the request to update
+        """
+        print(f"Example::worker using IP {ip}")
