@@ -32,6 +32,8 @@ class LuaDNS:
         for host in hosts:
             if host == '@':
                 host = self.zone
+            else:
+                host += '.' + self.zone
             if not host.endswith('.'):
                 host += '.'
             if host not in host_records:
