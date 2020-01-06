@@ -4,6 +4,7 @@ import sys, requests
 
 class IP:
 
+    @staticmethod
     def getPublic(self):
 
         try:
