@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import time, configparser, systemd.daemon, requests
 
+from helpers.IP import IP
+
 if __name__ == '__main__':
 
     '''
@@ -44,9 +46,13 @@ if __name__ == '__main__':
     update_interval_sec = config['global'].get('interval')
     if not update_interval_sec:
         update_interval_sec = 300
-
+    
+    ip = None
     while True:
-        for _, zone_invoke in zones.items():
-            zone_invoke.worker()
-
+        new_ip = IP.getPublic()
+        if not ip or ip != new_ip:
+            ip = new_ip
+            print(f"INFO: IP changed, updating zones/hosts with IP: {new_ip}")
+            for _, zone_invoke in zones.items():
+                zone_invoke.worker(ip)
         time.sleep(int(update_interval_sec))
