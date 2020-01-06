@@ -16,23 +16,11 @@ class CloudFlare:
         "X-Auth-Email": None,
         "X-Auth-Key": None
     }
-    ip = {
-        "public": None
-    }
-
 
     # CONSTRUCTOR
     def __init__(self, zone, config):
         self.zone = zone
         self.config = config
-
-
-        '''
-        Need to configure the current public IP
-        before the update process begin.
-        '''
-        self.ip['public'] = IP().getPublic()
-
 
         '''
         Need to configure CloudFlare request headers
@@ -64,7 +52,9 @@ class CloudFlare:
                     "type": "A",
                     "id": id_list['result'][0]['id'],
                     "name": host + '.' + self.config.name,
-                    "content": self.ip['public'],
+                    # Note: 'content' will be set in the worker method before
+                    # sending request
+                    "content": None,
                     "ttl": 120,
                     "proxied": False
                 })
@@ -73,6 +63,7 @@ class CloudFlare:
 
 
     # WORKER
-    def worker(self):
+    def worker(self, ip):
         for host in self.records:
+            host['content'] = ip
             self.rest.put('/zones/' + self.config.get('zone') + '/dns_records/' + host['id'], host)
