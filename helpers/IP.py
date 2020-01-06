@@ -13,5 +13,6 @@ class IP:
                 ip = response.json()
                 return ip['ip']
         except requests.exceptions.RequestException as e:
+            print("ERROR: Unable to get public IP address!")
             print( e )
             sys,exit(1)
