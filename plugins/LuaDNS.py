@@ -61,7 +61,7 @@ class LuaDNS:
         :returns: dict where record name is key record id is val.
         """
         if zone_id not in self._zone_records:
-            r_list = self.rest.get(f"zones/{zone_id}")
+            r_list = self.rest.get_json(f"zones/{zone_id}")
             if r_list:
                 self._zone_records = {r['name']: r['id'] for r in r_list['records'] if r['type'].lower() == 'a'}
         return self._zone_records
@@ -71,7 +71,7 @@ class LuaDNS:
         :returns: dict where zone name is key and zone id is val.
         """
         if not self._zones:
-            z_list = self.rest.get("zones")
+            z_list = self.rest.get_json("zones")
             if z_list:
                 self._zones = {z['name']: z['id'] for z in z_list}
         return self._zones
