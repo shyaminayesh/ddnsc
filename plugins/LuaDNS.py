@@ -24,6 +24,9 @@ class LuaDNS:
         self._zone_records = {}
         self._zones = {}
         self.zones = self._get_zones()
+        self.ttl = self.config.get['ttl']
+        if not self.ttl:
+            self.ttl = 3600
 
     def worker(self, ip):
         hosts = self.config['hosts'].split(',')
@@ -44,7 +47,8 @@ class LuaDNS:
                 "type": "A",
                 "name": host,
                 "content": ip,
-                "ttl": 120}
+                "ttl": self.ttl,
+            }
             ret = self.rest.put(f"{put_url}/{host_records[host]}", data)
             if not ret:
                 print(f"ERROR: Unable to update host record for '{host}' at "
