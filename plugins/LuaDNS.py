@@ -24,8 +24,12 @@ class LuaDNS:
         self._zone_records = {}
         self._zones = {}
         self.zones = self._get_zones()
-        self.ttl = self.config.get['ttl']
+        self.ttl = self.config.get('ttl')
         if not self.ttl:
+            self.ttl = 3600
+        try:
+            self.ttl = int(self.ttl)
+        except ValueError:
             self.ttl = 3600
 
     def worker(self, ip):
