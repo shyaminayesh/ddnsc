@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import sys, requests, json
+import sys, requests
 from systemd import journal
 
 # HELPERS
@@ -46,7 +46,7 @@ class CloudFlare:
             '''
             Retrive the record identifiers
             '''
-            id_list = json.loads(self.rest.get('/zones/' + self.config.get('zone') + '/dns_records?name=' + host + '.' + self.config.name))
+            id_list = self.rest.get_json('/zones/' + self.config.get('zone') + '/dns_records?name=' + host + '.' + self.config.name))
             if id_list:
                 self.records.append({
                     "type": "A",

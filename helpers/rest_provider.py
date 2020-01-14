@@ -11,7 +11,7 @@ class RestProvider:
     def get(self, endpoint):
         """
         :param endpoint: REST API endpoint to GET
-        :returns: dict representing json response. If error, returns None
+        :returns: Str response. If error, returns None
         """
         try:
 
@@ -34,6 +34,20 @@ class RestProvider:
         except requests.exceptions.RequestException as e:
             print(f"ERROR: Request failed: {e}")
             return None
+
+    def get_json(self, endpoint):
+        """
+        :param endpoint: REST API endpoint to GET
+        :returns: dict representing json response. If error, returns None
+        """
+        resp = self.get(endpoint)
+        json_resp = None
+
+        try:
+            json_resp = json.loads(resp)
+        except json.JSONDecodeError:
+            print(f"ERROR: Invalid response to request at endpoint {endpoint}")
+        return json_resp
 
     def put(self, endpoint, data):
         """
