@@ -15,7 +15,7 @@ Just another simple & lightweight client to update DNS dynamically. Written in p
 
 Introduction
 ------------
-[ddnsc][] is a simple program that helps update DNS dynamically. Written in python and runs on GNU/Linux.
+ddnsc is a simple program that helps update DNS dynamically. Written in python and runs on GNU/Linux.
 
 
 
@@ -35,8 +35,11 @@ ddns supports following DNS providers
 |     PROVIDER     |  WEBSITE                             |
 |------------------|:------------------------------------:|
 | CloudFlare       |  [cloudflare.com](//cloudflare.com)  |
+| DuckDNS          |  [duckdns.org](//duckdns.org)        |
+| Dynu             |  [dynu.net](//dynu.net)              |
 | LuaDNS           |  [luadns.com](//www.luadns.com)      |
 
+Please see the [Wiki](wiki/Providers) pages to get more information on providers.
 
 
 Installation
