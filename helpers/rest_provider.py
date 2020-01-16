@@ -49,6 +49,34 @@ class RestProvider:
             print(f"ERROR: Invalid response to request at endpoint {endpoint}")
         return json_resp
 
+
+
+    '''
+    Some API need POST request instead of PUT. This
+    method will implement POST interface for the
+    REST Provider
+    '''
+    def post(self, endpoint, data):
+        try:
+
+            Response = requests.post(f"{self.base_url}/{endpoint}", headers=self.headers, auth=self.auth, data=json.dumps(data))
+
+            '''
+            If something goes wrong we'll get status code that
+            not eq to 200
+            '''
+            if Response.status_code != 200:
+                print(f"ERROR: Response code {Response.status_code}")
+                return False
+
+        except requests.exceptions.RequestException as e:
+            print(f"ERROR: Request failed : {e}")
+            return False
+        finally:
+            return True
+
+
+
     def put(self, endpoint, data):
         """
         :param endpoint: REST API endpoint to GET
