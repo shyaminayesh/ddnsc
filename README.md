@@ -37,6 +37,7 @@ ddns supports following DNS providers
 | CloudFlare       |  [cloudflare.com](//cloudflare.com)  |
 | DuckDNS          |  [duckdns.org](//duckdns.org)        |
 | Dynu             |  [dynu.net](//dynu.net)              |
+| FreeDNS          |  [freedns.afraid.org](//freedns.afraid.org)              |
 | LuaDNS           |  [luadns.com](//www.luadns.com)      |
 
 Please see the [Wiki](wiki/Providers) pages to get more information on providers.
