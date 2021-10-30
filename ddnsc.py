@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
-import time, configparser, systemd.daemon, requests
+import time, configparser, requests
 
 from helpers.IP import IP
+
+try:
+    import systemd.daemon
+    has_systemd = True
+except ImportError:
+    has_systemd = False
 
 if __name__ == '__main__':
 
@@ -17,7 +23,8 @@ if __name__ == '__main__':
     config.read('/etc/ddnsc/ddnsc.conf')
 
     # NOTIFY ( systemd )
-    systemd.daemon.notify('READY=1')
+    if has_systemd:
+        systemd.daemon.notify('READY=1')
 
     zones = {}
     for zone in config.sections():
