@@ -1,5 +1,6 @@
 import json
 import requests
+from helpers.logger import Logger
 
 
 class RestProvider:
@@ -27,12 +28,13 @@ class RestProvider:
 
 
             if res.status_code != 200:
-                print(f"ERROR: Status code is {res.status_code}." f"Response: {res.text}")
+                Logger.error("ERROR: Status code is {res.status_code}."
+                             f"Response: {res.text}")
                 return None
 
 
         except requests.exceptions.RequestException as e:
-            print(f"ERROR: Request failed: {e}")
+            Logger.error(f"Request failed: {e}")
             return None
 
     def get_json(self, endpoint):
@@ -46,7 +48,7 @@ class RestProvider:
         try:
             json_resp = json.loads(resp)
         except json.JSONDecodeError:
-            print(f"ERROR: Invalid response to request at endpoint {endpoint}")
+            Logger.error(f"Invalid response to request at endpoint {endpoint}")
         return json_resp
 
 
@@ -66,11 +68,11 @@ class RestProvider:
             not eq to 200
             '''
             if Response.status_code != 200:
-                print(f"ERROR: Response code {Response.status_code}")
+                Logger.error(f"Response code {Response.status_code}")
                 return False
 
         except requests.exceptions.RequestException as e:
-            print(f"ERROR: Request failed : {e}")
+            Logger.error(f"Request failed : {e}")
             return False
         finally:
             return True
@@ -86,10 +88,10 @@ class RestProvider:
         try:
             res = requests.put(f"{self.base_url}/{endpoint}", headers=self.headers, auth=self.auth, data=json.dumps(data))
             if res.status_code != 200:
-                print(f"ERROR: Status code is {res.status_code}. "
-                      f"Response: {res.text}")
+                Logger.error(f"Status code is {res.status_code}. "
+                             f"Response: {res.text}")
                 return False
         except requests.exceptions.RequestException as e:
-            print(f"ERROR: Request failed: {e}")
+            Logger.error(f"Request failed: {e}")
             return False
         return True

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import sys, requests
-from systemd import journal
 
 # HELPERS
 from helpers.IP import IP

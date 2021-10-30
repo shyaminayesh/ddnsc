@@ -3,6 +3,7 @@ from requests.auth import HTTPBasicAuth
 
 # HELPERS
 from helpers.rest_provider import RestProvider
+from helpers.logger import Logger
 
 
 class LuaDNS:
@@ -44,8 +45,8 @@ class LuaDNS:
             if not host.endswith('.'):
                 host += '.'
             if host not in host_records:
-                print(f"WARN: Attempted to update host '{host}' that is not "
-                      "found under this account!")
+                Logger.warning(f"Attempted to update host '{host}' "
+                               "that is not found under this account!")
                 continue
             data = {
                 "type": "A",
@@ -55,8 +56,8 @@ class LuaDNS:
             }
             ret = self.rest.put(f"{put_url}/{host_records[host]}", data)
             if not ret:
-                print(f"ERROR: Unable to update host record for '{host}' at "
-                      "zone '{self.zone}'")
+                Logger.error(f"Unable to update host record for '{host}' at "
+                             "zone '{self.zone}'")
                 continue
 
     def _get_records(self, zone_id):

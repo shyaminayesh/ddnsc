@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys, requests
+from helpers.logger import Logger
 
 class IP:
 
@@ -13,6 +14,6 @@ class IP:
                 ip = response.json()
                 return ip['ip']
         except requests.exceptions.RequestException as e:
-            print("ERROR: Unable to get public IP address!")
-            print( e )
+            Logger.error("Unable to get public IP address!")
+            Logger.error( e )
             sys,exit(1)
