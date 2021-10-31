@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import json
-from systemd import journal
 from helpers.rest_provider import RestProvider
+from helpers.logger import Logger
+
 
 class Dynu:
 
@@ -60,6 +61,6 @@ class Dynu:
             host['ipv4Address'] = ip
             Response = self.rest.post('/dns/' + str(host['id']), host)
             if Response == True:
-                journal.send(f"[ddnsc]: Updating IP address {ip} to Dynu.net record {host['name']}")
+                Logger.info(f"Updating IP address {ip} to Dynu.net record {host['name']}")
             else:
-                journal.send(f"[ddnsc]: ERROR Updating IP address {ip} to Dynu.net record {host['name']}")
+                Logger.Error(f"Failed to update IP address {ip} to Dynu.net record {host['name']}")

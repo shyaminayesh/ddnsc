@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-from systemd import journal
 from helpers.rest_provider import RestProvider
+from helpers.logger import Logger
 
 class DuckDNS:
 
@@ -25,5 +25,5 @@ class DuckDNS:
             '''
             Update each host record with the new IP
             '''
-            journal.send(f"[ddnsc]: Updating IP address {ip} to DuckDNS record {host}.{self.config.name}")
+            Logger.Info(f"Updating IP address {ip} to DuckDNS record {host}.{self.config.name}")
             self.rest.get(f"/{host}.{self.config.name}/{self.config.get('token')}/{ip}")

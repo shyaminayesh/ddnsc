@@ -1,5 +1,6 @@
 import requests
 from urllib.parse import quote
+from helpers.logger import Logger
 
 
 class HttpProvider:
@@ -21,12 +22,12 @@ class HttpProvider:
             if res.status_code == 200:
                 return res.text
             if res.status_code != 200:
-                print(f"ERROR: Status code is {res.status_code}."
-                      f"Response: {res.text}")
+                Logger.error(f"Status code is {res.status_code}."
+                             f"Response: {res.text}")
                 return None
 
         except requests.exceptions.RequestException as e:
-            print(f"ERROR: Request failed: {e}")
+            Logger.error(f"Request failed: {e}")
             return None
 
     def get_q_string(self, query_string):
@@ -47,10 +48,10 @@ class HttpProvider:
             if res.status_code == 200:
                 return res.text
             if res.status_code != 200:
-                print(f"ERROR: Status code is {res.status_code}."
-                      f"Response: {res.text}")
+                Logger.error(f"Status code is {res.status_code}."
+                             f"Response: {res.text}")
                 return None
 
         except requests.exceptions.RequestException as e:
-            print(f"ERROR: Request failed: {e}")
+            Logger.error(f"Request failed: {e}")
             return None

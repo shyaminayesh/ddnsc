@@ -1,7 +1,14 @@
 #!/usr/bin/env python3
-import time, configparser, systemd.daemon, requests
+import time, configparser, requests
 
 from helpers.IP import IP
+from helpers.logger import Logger
+
+try:
+    import systemd.daemon
+    has_systemd = True
+except ImportError:
+    has_systemd = False
 
 if __name__ == '__main__':
 
@@ -17,7 +24,8 @@ if __name__ == '__main__':
     config.read('/etc/ddnsc/ddnsc.conf')
 
     # NOTIFY ( systemd )
-    systemd.daemon.notify('READY=1')
+    if has_systemd:
+        systemd.daemon.notify('READY=1')
 
     zones = {}
     for zone in config.sections():
@@ -35,7 +43,7 @@ if __name__ == '__main__':
         try:
             module = __import__("plugins." + provider, fromlist=[provider])
         except ImportError:
-            print(f"ERROR: Unknown provider in zone '{zone}': {provider}")
+            Logger.error(f"Unknown provider in zone '{zone}': {provider}")
 
         zones[zone] = getattr(module, provider)(zone, config[zone])
 
@@ -52,7 +60,7 @@ if __name__ == '__main__':
         new_ip = IP.getPublic()
         if not ip or ip != new_ip:
             ip = new_ip
-            print(f"INFO: IP changed, updating zones/hosts with IP: {new_ip}")
+            Logger.info(f"IP changed, updating zones/hosts with IP: {new_ip}")
             for _, zone_invoke in zones.items():
                 zone_invoke.worker(ip)
         time.sleep(int(update_interval_sec))
