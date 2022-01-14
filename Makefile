@@ -2,8 +2,8 @@ default: run
 
 
 run:
-	go run ddnsc.go
+	go run config.go ddnsc.go
 
 dist:
 	rm -rf ddnsc
-	go build -o ddnsc -ldflags "-s -w" -trimpath ddnsc.go
+	go build -o ddnsc -ldflags "-s -w" -trimpath config.go ddnsc.go
