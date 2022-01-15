@@ -9,8 +9,8 @@ import (
 func Config() *viper.Viper {
 
 	config := viper.New()
-	config.SetConfigName("ddnsc")
-	config.SetConfigType("yml")
+	config.SetConfigName("ddnsc.conf")
+	config.SetConfigType("toml")
 	config.AddConfigPath(".")
 	config.AddConfigPath("/etc/ddnsc")
 
@@ -21,6 +21,7 @@ func Config() *viper.Viper {
 	err := config.ReadInConfig()
 	if err != nil {
 		log.Fatal("Failed to read main configuration file.")
+		log.Fatal(err)
 	}
 
 	// return
