@@ -20,8 +20,8 @@ func Config() *viper.Viper {
 	 */
 	err := config.ReadInConfig()
 	if err != nil {
+		log.Println(err)
 		log.Fatal("Failed to read main configuration file.")
-		log.Fatal(err)
 	}
 
 	// return
