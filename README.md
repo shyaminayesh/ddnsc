@@ -59,7 +59,7 @@ You can install ddnsc on Arch Linux using [AUR](//aur.archlinux.org/packages/ddn
 Configuration
 -------------
 
-Multiple DNS providers, domains, and hosts/subdomains are supported. The configuration file has the following format:
+Multiple DNS providers, domains, and hosts/subdomains are supported. The configuration file, which is typically located in /etc/ddnsc/ddnsc.conf, has the following format:
 
 ```
 [global]
