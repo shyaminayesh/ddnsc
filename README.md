@@ -8,6 +8,7 @@ Just another simple & lightweight client to update DNS dynamically. Written in p
 - [Providers](#providers)
 - [Installation](#installation)
   - [Arch Linux](#arch-linux)
+  - [Debian Linux](#debian-linux)
   - [Manual](#manual)
 - [Configuration](#configuration)
 
