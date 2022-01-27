@@ -17,6 +17,7 @@ echo ""
 REQUIRED_PKG_0="python3"
 REQUIRED_PKG_1="python3-systemd"
 REQUIRED_PKG_2="python3-requests"
+REQUIRED_PKG_3="python-is-python3"
 
 PKG_OK_0=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG_0 | grep "install ok installed")
 echo Checking for $REQUIRED_PKG_0: $PKG_OK_0
@@ -37,6 +38,13 @@ echo Checking for $REQUIRED_PKG_2: $PKG_OK_2
 if [ "" = "$PKG_OK_2" ]; then
   echo "No $REQUIRED_PKG_2. Setting up $REQUIRED_PKG_2."
   apt-get --yes install $REQUIRED_PKG_2
+fi
+
+PKG_OK_3=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG_3 | grep "install ok installed")
+echo Checking for $REQUIRED_PKG_3: $PKG_OK_3
+if [ "" = "$PKG_OK_3" ]; then
+  echo "No $REQUIRED_PKG_3. Setting up $REQUIRED_PKG_3."
+  apt-get --yes install $REQUIRED_PKG_3
 fi
 
 echo ""
