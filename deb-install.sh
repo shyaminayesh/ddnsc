@@ -48,7 +48,8 @@ echo ""
 if [ -f "/etc/$PKGNAME/$CONF_FILE" ]
 then
     echo "Backing up current $CONF_FILE"
-	mv /etc/$PKGNAME/$CONF_FILE /etc/$PKGNAME/$CONF_FILE.backup
+    mv /etc/$PKGNAME/$CONF_FILE /etc/$PKGNAME/$CONF_FILE.backup
+	echo ""
 fi
 
 # create necessary directories on system
@@ -68,4 +69,5 @@ install -Dm600 .configs/ddnsc.conf /etc/$PKGNAME/$CONF_FILE
 # Copy SERVICE ( systemd )
 install -D .configs/ddnsc.service /usr/lib/systemd/system/$PKGNAME.service
 
-echo "Install for $PKGNAME is now complete."
+echo ""
+echo "Install for $PKGNAME is now complete on your Debian system. Enjoy."
