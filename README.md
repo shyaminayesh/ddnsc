@@ -54,7 +54,11 @@ You can install ddnsc on Arch Linux using [AUR](//aur.archlinux.org/packages/ddn
 
   ```yay -S ddnsc```
 
+### Debian Linux
 
+You can install ddnsc on Debian Linux using the included deb-install.sh.
+
+  ```sudo ./deb-install.sh```
 
 Configuration
 -------------
