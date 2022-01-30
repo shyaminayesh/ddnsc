@@ -7,6 +7,6 @@ type (
 
 	Config struct {
 		Global   Global
-		Provider interface{}
+		Provider map[string]interface{}
 	}
 )
