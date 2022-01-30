@@ -1,11 +1,26 @@
 package main
 
 import (
-	"ddnsc/factories"
-	"net/http"
-	"reflect"
+	"ddnsc/providers"
 	"time"
 )
+
+/**
+* Define the interface for the Provider to later use
+* in single provider to implement
+ */
+type Provider interface {
+	Worker(configuration map[string]interface{})
+}
+
+/**
+* Define list of available providers into the following
+* factory var to utilize later in dynamic provider
+* loading.
+ */
+var Factory map[string]Provider = map[string]Provider{
+	"test": &providers.Test{},
+}
 
 func main() {
 
@@ -13,32 +28,17 @@ func main() {
 	* We have to load the configuration file from the disk to
 	* grab predefine configuration data to the utility.
 	 */
-	config := Config()
+	config := NewConfig()
 
-	// ip := &net.IP{}
 	for {
 
-		for name, conf := range config.GetStringMap("provider") {
-			Provider := factories.Providers[name]
-
-			/**
-			* Configure struct attribute for future use in the
-			* provider methods. We can use common set of interfaces
-			* if needed.
-			 */
-			reflect.ValueOf(Provider).Elem().FieldByName("Client").Set(reflect.ValueOf(&http.Client{}))
-
-			/**
-			* Invoke the worker method of the provider plugin
-			* to do the actual work.
-			 */
-			reflect.ValueOf(Provider).MethodByName("Worker").Call([]reflect.Value{
-				reflect.ValueOf(conf),
-			})
-
+		for name, configuration := range config.Provider {
+			configuration := configuration.(map[string]interface{})
+			var provider Provider = Factory[name]
+			provider.Worker(configuration)
 		}
 
-		time.Sleep(time.Duration(config.GetInt("global.interval")) * time.Second)
+		time.Sleep(time.Duration(config.Global.Interval) * time.Second)
 	}
 
 }
