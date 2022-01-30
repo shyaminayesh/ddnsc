@@ -1,14 +1,24 @@
 package main
 
 import (
-	"ddnsc/types"
 	"log"
 	"os"
 
 	"github.com/pelletier/go-toml"
 )
 
-func Config() types.Config {
+type (
+	Global struct {
+		Interval uint64
+	}
+
+	Config struct {
+		Global   Global
+		Provider map[string]interface{}
+	}
+)
+
+func NewConfig() Config {
 
 	/**
 	* Check for the configuration file in the default
@@ -37,7 +47,7 @@ func Config() types.Config {
 	* Decode TOML file into the Configuration struct and then
 	* return the Configuration struct to work with.
 	 */
-	config := types.Config{}
+	config := Config{}
 	err := toml.NewDecoder(file).Decode(&config)
 	if err != nil {
 		log.Fatal(err)
