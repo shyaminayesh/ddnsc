@@ -7,7 +7,7 @@ import (
 
 /**
 * Define the interface for the Provider to later use
-* in single provider to implement
+* in seperate providers to implement
  */
 type Provider interface {
 	Worker(configuration map[string]interface{})
