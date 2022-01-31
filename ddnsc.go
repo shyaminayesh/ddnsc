@@ -3,6 +3,7 @@ package main
 import (
 	"ddnsc/config"
 	"ddnsc/providers"
+	"log"
 	"time"
 )
 
@@ -11,7 +12,8 @@ import (
 * in seperate providers to implement
  */
 type Provider interface {
-	Worker(cfg config.Provider)
+	Worker(cfg config.Provider) error
+	Validate(cfg config.Provider) error
 }
 
 /**
@@ -35,7 +37,9 @@ func main() {
 
 		for name, cfg := range config.Providers {
 			var provider Provider = Factory[name]
-			provider.Worker(cfg)
+			if err := provider.Worker(cfg); err != nil {
+				log.Fatal(err)
+			}
 		}
 
 		time.Sleep(time.Duration(config.Global.Interval) * time.Second)

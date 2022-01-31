@@ -9,12 +9,17 @@ import (
 
 type (
 	Provider struct {
+		Email string
 		Token string
+		Key   string
+		Zone  string
+		Host  string
+		TTL   uint16 `default:"120"`
 	}
 
 	Config struct {
 		Global struct {
-			Interval uint64
+			Interval uint16
 		}
 
 		Providers map[string]Provider `toml:"provider"`
