@@ -1,4 +1,4 @@
-package main
+package config
 
 import (
 	"log"
@@ -8,13 +8,16 @@ import (
 )
 
 type (
-	Global struct {
-		Interval uint64
+	Provider struct {
+		Token string
 	}
 
 	Config struct {
-		Global   Global
-		Provider map[string]interface{}
+		Global struct {
+			Interval uint64
+		}
+
+		Providers map[string]Provider `toml:"provider"`
 	}
 )
 
