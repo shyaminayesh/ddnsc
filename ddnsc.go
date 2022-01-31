@@ -1,6 +1,7 @@
 package main
 
 import (
+	"ddnsc/config"
 	"ddnsc/providers"
 	"time"
 )
@@ -10,7 +11,7 @@ import (
 * in seperate providers to implement
  */
 type Provider interface {
-	Worker(configuration map[string]interface{})
+	Worker(cfg config.Provider)
 }
 
 /**
@@ -19,7 +20,7 @@ type Provider interface {
 * loading.
  */
 var Factory map[string]Provider = map[string]Provider{
-	"test": &providers.Test{},
+	"cloudflare": &providers.Cloudflare{},
 }
 
 func main() {
@@ -28,14 +29,13 @@ func main() {
 	* We have to load the configuration file from the disk to
 	* grab predefine configuration data to the utility.
 	 */
-	config := NewConfig()
+	config := config.NewConfig()
 
 	for {
 
-		for name, configuration := range config.Provider {
-			configuration := configuration.(map[string]interface{})
+		for name, cfg := range config.Providers {
 			var provider Provider = Factory[name]
-			provider.Worker(configuration)
+			provider.Worker(cfg)
 		}
 
 		time.Sleep(time.Duration(config.Global.Interval) * time.Second)
