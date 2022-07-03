@@ -68,7 +68,7 @@ Multiple DNS providers, domains, and hosts/subdomains are supported. The configu
 
 ```
 [global]
-intervel=300
+interval=300
 use=web
 
 [example.com]
