@@ -21,7 +21,7 @@ ddnsc is a simple program that helps update DNS dynamically. Written in python a
 
 Requirements
 ------------
-- Go lang version 1.17 or higher
+- Go lang version 1.17 or higher. If your Linux package manager version of go is too old, like Debian 11 has 1.15, then install [Go Version Manager](https://github.com/moovweb/gvm) and install 1.17 or above using that tool.
 
 
 
