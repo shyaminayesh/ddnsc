@@ -21,9 +21,7 @@ ddnsc is a simple program that helps update DNS dynamically. Written in python a
 
 Requirements
 ------------
-- Python v3 or later
-   - python-systemd
-   - python-requests
+- Go lang version 1.17 or higher. If your Linux package manager version of go is too old, like Debian 11 has 1.15, then install [Go Version Manager](https://github.com/moovweb/gvm) and install 1.17 or above using that tool.
 
 
 
@@ -40,7 +38,7 @@ ddns supports following DNS providers
 | FreeDNS          |  [freedns.afraid.org](//freedns.afraid.org)              |
 | LuaDNS           |  [luadns.com](//www.luadns.com)      |
 
-Please see the [Wiki](wiki/Providers) pages to get more information on providers.
+Please see the [Wiki](https://github.com/shyaminayesh/ddnsc/wiki/Providers) pages to get more information on providers.
 
 
 Installation
