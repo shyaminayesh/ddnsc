@@ -1,6 +1,6 @@
 # ddnsc
 
-Just another simple & lightweight client to update DNS dynamically. Written in python with easy way of supporting new service providers with REST API.
+Just another simple & lightweight client to update DNS dynamically. Written in golang, but originally written in python, with easy way of supporting new service providers with REST API.
 
 
 - [Introduction](#introduction)
@@ -8,14 +8,13 @@ Just another simple & lightweight client to update DNS dynamically. Written in p
 - [Providers](#providers)
 - [Installation](#installation)
   - [Arch Linux](#arch-linux)
-  - [Manual](#manual)
 - [Configuration](#configuration)
 
 
 
 Introduction
 ------------
-ddnsc is a simple program that helps update DNS dynamically. Written in python and runs on GNU/Linux.
+ddnsc is a simple program that helps update DNS dynamically. Written in golang, but originally written in in python, and runs on GNU/Linux.
 
 
 
